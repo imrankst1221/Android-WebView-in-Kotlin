@@ -1,6 +1,12 @@
 package imrankst1221.website.in.webview;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,7 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
-
+    Context mContext;
     // set your custom url here
     String url = "http://www.androidbangladesh.com/";
 
@@ -29,13 +35,14 @@ public class MainActivity extends Activity {
     WebView mWebView;
     ProgressBar prgs;
     RelativeLayout splash, main_layout;
+    SwipeRefreshLayout swipeLayout;
 
     @SuppressWarnings("deprecation")
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mContext = this;
         this.getWindow().requestFeature(Window.FEATURE_PROGRESS);
         super.onCreate(savedInstanceState);
 
@@ -46,6 +53,28 @@ public class MainActivity extends Activity {
         mWebView = (WebView) findViewById(R.id.wv);
         prgs = (ProgressBar) findViewById(R.id.progressBar);
         main_layout = (RelativeLayout) findViewById(R.id.main_layout);
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+
+        swipeLayout.setColorSchemeColors(ContextCompat.getColor(mContext,R.color.material_core_deep_orange),
+                ContextCompat.getColor(mContext,R.color.material_core_blue),
+                ContextCompat.getColor(mContext,R.color.material_core_light_green),
+                ContextCompat.getColor(mContext,R.color.material_core_yellow));
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(internetCheck(mContext)) {
+                            mWebView.loadUrl(url);
+                        }else{
+                            showAlertDialog(mContext, "OOPS!", "Please check your internet connection.", R.drawable.ic_no_internet);
+                        }
+                    }
+                },1000);
+            }
+        });
+
 
         // splash screen View
         if (!showProgressOnSplashScreen)
@@ -74,8 +103,11 @@ public class MainActivity extends Activity {
 //			main_layout.setPadding(0, result, 0, 0);
 //		}
 
-        mWebView.loadUrl(url);
-
+        if(internetCheck(mContext)) {
+            mWebView.loadUrl(url);
+        }else{
+            showAlertDialog(mContext, "OOPS!", "Please check your internet connection.", R.drawable.ic_no_internet);
+        }
         // control javaScript and add html5 features
         mWebView.setFocusable(true);
         mWebView.setFocusableInTouchMode(true);
@@ -127,7 +159,6 @@ public class MainActivity extends Activity {
                 // slideToBottom(splash);
 
             }
-
         });
 
     }
@@ -145,6 +176,49 @@ public class MainActivity extends Activity {
     // view.startAnimation(animate);
     // view.setVisibility(View.GONE);
     // }
+
+    public static void showAlertDialog(Context mContext, String mTitle, String mBody, int mImage){
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
+        builder.setCancelable(true);
+        builder.setIcon(mImage);
+        if(mTitle.length()>0)
+            builder.setTitle(mTitle);
+        if(mBody.length()>0)
+            builder.setTitle(mBody);
+
+        builder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
+    }
+    public static boolean internetCheck(Context context) {
+        boolean available=false;
+        ConnectivityManager connectivity= (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if(connectivity!=null)
+        {
+            NetworkInfo[] networkInfo= connectivity.getAllNetworkInfo();
+            if(networkInfo!=null)
+            {
+                for(int i=0; i<networkInfo.length;i++)
+                {
+                    if(networkInfo[i].getState()==NetworkInfo.State.CONNECTED)
+                    {
+                        available=true;
+                        break;
+                    }
+                }
+            }
+
+
+        }
+
+        return available;
+    }
 
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
