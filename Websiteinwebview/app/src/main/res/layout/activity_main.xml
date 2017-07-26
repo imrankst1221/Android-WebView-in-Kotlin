@@ -14,6 +14,7 @@
         android:visibility="visible"
         android:indeterminate="true"
         android:layout_alignParentBottom="true"
+        android:progressDrawable="@drawable/cs_custom_progressbar"
         style="?android:attr/progressBarStyleHorizontal"/>
     <RelativeLayout
         android:id="@+id/splash"
