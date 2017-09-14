@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -21,8 +22,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends Activity {
     Context mContext;
@@ -32,9 +38,11 @@ public class MainActivity extends Activity {
     // if you want to show progress bar on splash screen
     Boolean showProgressOnSplashScreen = true;
 
+    AdView adView;
     WebView mWebView;
     ProgressBar prgs;
     RelativeLayout splash, main_layout;
+    LinearLayout layoutFooter;
     SwipeRefreshLayout swipeLayout;
 
     @SuppressWarnings("deprecation")
@@ -53,28 +61,8 @@ public class MainActivity extends Activity {
         mWebView = (WebView) findViewById(R.id.wv);
         prgs = (ProgressBar) findViewById(R.id.progressBar);
         main_layout = (RelativeLayout) findViewById(R.id.main_layout);
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-
-        swipeLayout.setColorSchemeColors(ContextCompat.getColor(mContext,R.color.material_core_deep_orange),
-                ContextCompat.getColor(mContext,R.color.material_core_blue),
-                ContextCompat.getColor(mContext,R.color.material_core_light_green),
-                ContextCompat.getColor(mContext,R.color.material_core_yellow));
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(internetCheck(mContext)) {
-                            mWebView.loadUrl(url);
-                        }else{
-                            showAlertDialog(mContext, "OOPS!", "Please check your internet connection.", R.drawable.ic_no_internet);
-                        }
-                    }
-                },1000);
-            }
-        });
-
+        layoutFooter = (LinearLayout) findViewById(R.id.layout_footer);
+        adView = (AdView) findViewById(R.id.adMob);
 
         // splash screen View
         if (!showProgressOnSplashScreen)
@@ -89,19 +77,17 @@ public class MainActivity extends Activity {
             }
         },5000);
 
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//
-//			// get status bar height to push webview below that
-//			int result = 0;
-//			int resourceId = getResources().getIdentifier("status_bar_height",
-//					"dimen", "android");
-//			if (resourceId > 0) {
-//				result = getResources().getDimensionPixelSize(resourceId);
-//			}
-//
-//			// set top padding to status bar
-//			main_layout.setPadding(0, result, 0, 0);
-//		}
+
+        try {
+            if(internetCheck(mContext)){
+                initializeAdMob();
+            }else{
+                Log.d("---------","--no internet-");
+            }
+        }catch (Exception ex){
+            Log.d("-----------", ""+ex);
+        }
+
 
         if(internetCheck(mContext)) {
             mWebView.loadUrl(url);
@@ -160,22 +146,30 @@ public class MainActivity extends Activity {
 
             }
         });
-
     }
 
-    /**
-     * To animate view slide out from top to bottom
-     *
-     * @param
-     */
-    // void slideToBottom(View view) {
-    // TranslateAnimation animate = new TranslateAnimation(0, 0, 0,
-    // view.getHeight());
-    // animate.setDuration(2000);
-    // animate.setFillAfter(true);
-    // view.startAnimation(animate);
-    // view.setVisibility(View.GONE);
-    // }
+    private void initializeAdMob() {
+        Log.d("----","Initial Call");
+        adView.setVisibility(View.GONE);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)        // All emulators
+                //.addTestDevice("F901B815E265F8281206A2CC49D4E432")
+                .build();
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adView.setVisibility(View.VISIBLE);
+                        Log.d("----","Visible");
+                    }
+                });
+            }
+        });
+        adView.loadAd(adRequest);
+    }
 
     public static void showAlertDialog(Context mContext, String mTitle, String mBody, int mImage){
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
