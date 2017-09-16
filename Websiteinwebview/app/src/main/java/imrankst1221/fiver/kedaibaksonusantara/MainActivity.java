@@ -1,47 +1,41 @@
-package imrankst1221.website.in.webview;
+package imrankst1221.fiver.kedaibaksonusantara;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 public class MainActivity extends Activity {
     Context mContext;
+    boolean mLoaded = false;
     // set your custom url here
-    String url = "http://www.androidbangladesh.com/";
+    String url = "http://tokonusantara-online.nl";
 
-    // if you want to show progress bar on splash screen
-    Boolean showProgressOnSplashScreen = true;
-
-    AdView adView;
+    //AdView adView;
+    Button btnTryAgain;
     WebView mWebView;
     ProgressBar prgs;
-    RelativeLayout splash, main_layout;
+    View viewSplash;
+    RelativeLayout layoutSplash, layoutWebview, layoutNoInternet;
     LinearLayout layoutFooter;
     SwipeRefreshLayout swipeLayout;
 
@@ -50,7 +44,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
         this.getWindow().requestFeature(Window.FEATURE_PROGRESS);
         super.onCreate(savedInstanceState);
 
@@ -58,43 +51,57 @@ public class MainActivity extends Activity {
         getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
                 Window.PROGRESS_VISIBILITY_ON);
 
-        mWebView = (WebView) findViewById(R.id.wv);
+        mContext = this;
+        mWebView = (WebView) findViewById(R.id.webview);
         prgs = (ProgressBar) findViewById(R.id.progressBar);
-        main_layout = (RelativeLayout) findViewById(R.id.main_layout);
-        layoutFooter = (LinearLayout) findViewById(R.id.layout_footer);
-        adView = (AdView) findViewById(R.id.adMob);
+        btnTryAgain = (Button) findViewById(R.id.btn_try_again);
+        viewSplash = (View) findViewById(R.id.view_splash);
+        layoutWebview = (RelativeLayout) findViewById(R.id.layout_webview);
+        layoutNoInternet = (RelativeLayout) findViewById(R.id.layout_no_internet);
 
-        // splash screen View
-        if (!showProgressOnSplashScreen)
-            ((ProgressBar) findViewById(R.id.progressBarSplash)).setVisibility(View.GONE);
-        splash = (RelativeLayout) findViewById(R.id.splash);
+        /** Layout of Splash screen View **/
+        layoutSplash = (RelativeLayout) findViewById(R.id.layout_splash);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (splash.getVisibility() == View.VISIBLE)
-                    splash.setVisibility(View.GONE);
-            }
-        },5000);
+        //request for show website
+        if(!mLoaded) {
+            requestWebView();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    prgs.setVisibility(View.VISIBLE);
+                    //viewSplash.getBackground().setAlpha(145);
+                    mWebView.setVisibility(View.VISIBLE);
+                }
+            }, 3000);
 
-
-        try {
-            if(internetCheck(mContext)){
-                initializeAdMob();
-            }else{
-                Log.d("---------","--no internet-");
-            }
-        }catch (Exception ex){
-            Log.d("-----------", ""+ex);
+        }else{
+            mWebView.setVisibility(View.VISIBLE);
+            prgs.setVisibility(View.GONE);
+            layoutSplash.setVisibility(View.GONE);
+            layoutNoInternet.setVisibility(View.GONE);
         }
 
+        btnTryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestWebView();
+            }
+        });
+        //showAdMob();
+    }
 
+    private void requestWebView() {
+        /** Layout of webview screen View **/
         if(internetCheck(mContext)) {
+            mWebView.setVisibility(View.VISIBLE);
+            layoutNoInternet.setVisibility(View.GONE);
             mWebView.loadUrl(url);
         }else{
-            showAlertDialog(mContext, "OOPS!", "Please check your internet connection.", R.drawable.ic_no_internet);
+            prgs.setVisibility(View.GONE);
+            mWebView.setVisibility(View.GONE);
+            layoutSplash.setVisibility(View.GONE);
+            layoutNoInternet.setVisibility(View.VISIBLE);
         }
-        // control javaScript and add html5 features
         mWebView.setFocusable(true);
         mWebView.setFocusableInTouchMode(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -110,12 +117,19 @@ public class MainActivity extends Activity {
 
         // this force use chromeWebClient
         mWebView.getSettings().setSupportMultipleWindows(true);
-
         mWebView.setWebViewClient(new WebViewClient() {
-
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                if(internetCheck(mContext)) {
+                    mWebView.setVisibility(View.VISIBLE);
+                    layoutNoInternet.setVisibility(View.GONE);
+                    view.loadUrl(url);
+                }else{
+                    prgs.setVisibility(View.GONE);
+                    mWebView.setVisibility(View.GONE);
+                    layoutSplash.setVisibility(View.GONE);
+                    layoutNoInternet.setVisibility(View.VISIBLE);
+                }
                 return false;
             }
 
@@ -135,19 +149,38 @@ public class MainActivity extends Activity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
+                mLoaded = true;
                 if (prgs.getVisibility() == View.VISIBLE)
                     prgs.setVisibility(View.GONE);
 
-                // check if splash is still there, get it away!
-                if (splash.getVisibility() == View.VISIBLE)
-                    splash.setVisibility(View.GONE);
-                // slideToBottom(splash);
-
+                // check if layoutSplash is still there, get it away!
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layoutSplash.setVisibility(View.GONE);
+                        //viewSplash.getBackground().setAlpha(255);
+                    }
+                }, 2000);
             }
         });
     }
 
+    private void showAdMob() {
+        /** Layout of AdMob screen View **/
+        //layoutFooter = (LinearLayout) findViewById(R.id.layout_footer);
+        //adView = (AdView) findViewById(R.id.adMob);
+            /*try {
+            if(internetCheck(mContext)){
+                //initializeAdMob();
+            }else{
+                Log.d("---------","--no internet-");
+            }
+        }catch (Exception ex){
+            Log.d("-----------", ""+ex);
+        }*/
+    }
+    /**** Initial AdMob ****/
+    /**
     private void initializeAdMob() {
         Log.d("----","Initial Call");
         adView.setVisibility(View.GONE);
@@ -170,7 +203,8 @@ public class MainActivity extends Activity {
         });
         adView.loadAd(adRequest);
     }
-
+    **/
+    /**
     public static void showAlertDialog(Context mContext, String mTitle, String mBody, int mImage){
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
         builder.setCancelable(true);
@@ -188,7 +222,8 @@ public class MainActivity extends Activity {
         });
 
         builder.create().show();
-    }
+    }**/
+
     public static boolean internetCheck(Context context) {
         boolean available=false;
         ConnectivityManager connectivity= (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -207,10 +242,7 @@ public class MainActivity extends Activity {
                     }
                 }
             }
-
-
         }
-
         return available;
     }
 

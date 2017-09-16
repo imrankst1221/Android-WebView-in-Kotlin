@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4CAF50</color>
-    <color name="colorPrimaryDark">#4CAF50</color>
-    <color name="colorAccent">#e74c3c</color>
+    <color name="colorPrimary">#E55934</color>
+    <color name="colorPrimaryDark">#C44033</color>
+    <color name="colorAccent">#F1C387</color>
+    <color name="colorText">#A2A2A2</color>
+    <color name="colorWhite">#F2F1F1</color>
 
     <!-- Material core colors -->
     <color name="material.core.red">#f44336</color>
