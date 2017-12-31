@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -28,7 +29,7 @@ public class MainActivity extends Activity {
     Context mContext;
     boolean mLoaded = false;
     // set your custom url here
-    String url = "http://tokonusantara-online.nl";
+    String url = "https://jobboardpro.site/";
 
     //AdView adView;
     Button btnTryAgain;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
                 Window.PROGRESS_VISIBILITY_ON);
 
@@ -58,11 +60,27 @@ public class MainActivity extends Activity {
         viewSplash = (View) findViewById(R.id.view_splash);
         layoutWebview = (RelativeLayout) findViewById(R.id.layout_webview);
         layoutNoInternet = (RelativeLayout) findViewById(R.id.layout_no_internet);
-
         /** Layout of Splash screen View **/
         layoutSplash = (RelativeLayout) findViewById(R.id.layout_splash);
 
         //request for show website
+        requestForWebview();
+
+        btnTryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWebView.setVisibility(View.GONE);
+                prgs.setVisibility(View.VISIBLE);
+                layoutSplash.setVisibility(View.VISIBLE);
+                layoutNoInternet.setVisibility(View.GONE);
+                requestForWebview();
+            }
+        });
+        //showAdMob();
+    }
+
+    private void requestForWebview() {
+
         if(!mLoaded) {
             requestWebView();
             new Handler().postDelayed(new Runnable() {
@@ -81,13 +99,6 @@ public class MainActivity extends Activity {
             layoutNoInternet.setVisibility(View.GONE);
         }
 
-        btnTryAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestWebView();
-            }
-        });
-        //showAdMob();
     }
 
     private void requestWebView() {
@@ -101,6 +112,8 @@ public class MainActivity extends Activity {
             mWebView.setVisibility(View.GONE);
             layoutSplash.setVisibility(View.GONE);
             layoutNoInternet.setVisibility(View.VISIBLE);
+
+            return;
         }
         mWebView.setFocusable(true);
         mWebView.setFocusableInTouchMode(true);
