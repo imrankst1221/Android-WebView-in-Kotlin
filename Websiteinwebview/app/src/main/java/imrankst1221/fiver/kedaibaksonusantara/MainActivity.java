@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 
@@ -101,6 +103,8 @@ public class MainActivity extends Activity {
 
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void requestWebView() {
         /** Layout of webview screen View **/
         if(internetCheck(mContext)) {
@@ -117,12 +121,14 @@ public class MainActivity extends Activity {
         }
         mWebView.setFocusable(true);
         mWebView.setFocusableInTouchMode(true);
+        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setRenderPriority(RenderPriority.HIGH);
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setAppCacheEnabled(true);
-        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWebView.getSettings().setDatabaseEnabled(true);
         mWebView.getSettings().setDatabasePath(
                 this.getFilesDir().getPath() + this.getPackageName()
@@ -136,7 +142,7 @@ public class MainActivity extends Activity {
                 if(internetCheck(mContext)) {
                     mWebView.setVisibility(View.VISIBLE);
                     layoutNoInternet.setVisibility(View.GONE);
-                    view.loadUrl(url);
+                    //view.loadUrl(url);
                 }else{
                     prgs.setVisibility(View.GONE);
                     mWebView.setVisibility(View.GONE);
