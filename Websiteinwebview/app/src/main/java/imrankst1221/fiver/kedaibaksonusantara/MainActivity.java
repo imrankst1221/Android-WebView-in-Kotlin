@@ -40,15 +40,29 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.InvalidParameterSpecException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends Activity {
     static String TAG = "---MainActivity";
     Context mContext;
     boolean mLoaded = false;
     // set your custom url here
-    String url = "https://jobboardpro.site/";
+    String URL = "https://jobboardpro.site/";
 
     //for attach files
     private String mCameraPhotoPath;
@@ -89,6 +103,7 @@ public class MainActivity extends Activity {
         /** Layout of Splash screen View **/
         layoutSplash = (RelativeLayout) findViewById(R.id.layout_splash);
 
+
         //request for show website
         requestForWebview();
 
@@ -103,7 +118,22 @@ public class MainActivity extends Activity {
             }
         });
         //showAdMob();
+
+        SecretKey secret = null;
+        String toEncrypt = URL;
+        try {
+            secret = generateKey();
+            byte[] toDecrypt = encryptMsg(toEncrypt, secret);
+
+            Log.d(TAG, toDecrypt.toString());
+
+            Log.d(TAG, decryptMsg(toDecrypt, secret));
+        } catch (Exception e) {
+            Log.e(TAG, ""+e.getMessage());
+        }
+
     }
+
 
     private void requestForWebview() {
 
@@ -134,7 +164,7 @@ public class MainActivity extends Activity {
         if(internetCheck(mContext)) {
             mWebView.setVisibility(View.VISIBLE);
             layoutNoInternet.setVisibility(View.GONE);
-            mWebView.loadUrl(url);
+            mWebView.loadUrl(URL);
         }else{
             prgs.setVisibility(View.GONE);
             mWebView.setVisibility(View.GONE);
@@ -158,9 +188,36 @@ public class MainActivity extends Activity {
                 this.getFilesDir().getPath() + this.getPackageName()
                         + "/databases/");
         // this force use chromeWebClient
-        mWebView.getSettings().setSupportMultipleWindows(true);
+        mWebView.getSettings().setSupportMultipleWindows(false);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+
+                Log.d(TAG,"URL: "+url);
+                if(internetCheck(mContext)) {
+                    view.loadUrl(url);
+
+                    /**
+                     * if you wanna open outside of app
+                     if (url != null && url.startsWith(URL)) {
+                        view.loadUrl(url);
+                        return false;
+                    }
+                    // Otherwise, give the default behavior (open in browser)
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);**/
+                    return true;
+                }else{
+                    prgs.setVisibility(View.GONE);
+                    mWebView.setVisibility(View.GONE);
+                    layoutSplash.setVisibility(View.GONE);
+                    layoutNoInternet.setVisibility(View.VISIBLE);
+                }
+
+                return true;
+            }
+
+           /* @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 if(internetCheck(mContext)) {
                     mWebView.setVisibility(View.VISIBLE);
@@ -173,7 +230,7 @@ public class MainActivity extends Activity {
                     layoutNoInternet.setVisibility(View.VISIBLE);
                 }
                 return false;
-            }
+            }*/
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -205,7 +262,6 @@ public class MainActivity extends Activity {
                 }, 2000);
             }
         });
-
 
         //file attach request
         mWebView.setWebChromeClient(new WebChromeClient() {
@@ -277,13 +333,13 @@ public class MainActivity extends Activity {
         return imageFile;
     }
 
+
+
     /**
      * Convenience method to set some generic defaults for a
      * given WebView
-     *
-     * @param webView
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void setUpWebViewDefaults(WebView webView) {
         WebSettings settings = webView.getSettings();
 
@@ -310,7 +366,7 @@ public class MainActivity extends Activity {
         // We set the WebViewClient to ensure links are consumed by the WebView rather
         // than passed to a browser if it can
         mWebView.setWebViewClient(new WebViewClient());
-    }
+    }*/
 
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
@@ -342,6 +398,31 @@ public class MainActivity extends Activity {
     }
 
 
+    //for security
+    public static SecretKey generateKey()
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+        SecureRandom random = new SecureRandom();
+        byte[] key = {1,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0};
+        //random.nextBytes(key);
+        return new SecretKeySpec(key, "AES");
+    }
+
+    public static byte[] encryptMsg(String message, SecretKey secret)
+            throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {Cipher cipher = null;
+        cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, secret);
+        byte[] cipherText = cipher.doFinal(message.getBytes("UTF-8"));
+        return cipherText;
+    }
+
+    public static String decryptMsg(byte[] cipherText, SecretKey secret)
+            throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
+        Cipher cipher = null;
+        cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, secret);
+        String decryptString = new String(cipher.doFinal(cipherText), "UTF-8");
+        return decryptString;
+    }
 
     private void showAdMob() {
         /** Layout of AdMob screen View **/
