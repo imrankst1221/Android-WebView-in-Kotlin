@@ -175,18 +175,18 @@ public class MainActivity extends Activity {
         }
         mWebView.setFocusable(true);
         mWebView.setFocusableInTouchMode(true);
-        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWebView.getSettings().setRenderPriority(RenderPriority.HIGH);
-        mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setAppCacheEnabled(true);
         mWebView.getSettings().setDatabaseEnabled(true);
-        mWebView.getSettings().setDatabasePath(
-                this.getFilesDir().getPath() + this.getPackageName()
-                        + "/databases/");
+        //mWebView.getSettings().setDatabasePath(
+        //        this.getFilesDir().getPath() + this.getPackageName() + "/databases/");
+
         // this force use chromeWebClient
         mWebView.getSettings().setSupportMultipleWindows(false);
         mWebView.setWebViewClient(new WebViewClient() {
@@ -195,17 +195,15 @@ public class MainActivity extends Activity {
 
                 Log.d(TAG,"URL: "+url);
                 if(internetCheck(mContext)) {
-                    view.loadUrl(url);
-
-                    /**
-                     * if you wanna open outside of app
+                    //view.loadUrl(url);
+                    // if you wanna open outside of app
                      if (url != null && url.startsWith(URL)) {
                         view.loadUrl(url);
                         return false;
                     }
                     // Otherwise, give the default behavior (open in browser)
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(intent);**/
+                    startActivity(intent);
                     return true;
                 }else{
                     prgs.setVisibility(View.GONE);
