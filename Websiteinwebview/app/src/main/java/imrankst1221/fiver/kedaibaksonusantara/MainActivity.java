@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
     Context mContext;
     boolean mLoaded = false;
     // set your custom url here
-    String URL = "https://jobboardpro.site/";
+    String URL = "https://www.allmistree.com/career/";
 
     //for attach files
     private String mCameraPhotoPath;
