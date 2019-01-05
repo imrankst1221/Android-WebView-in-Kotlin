@@ -6,7 +6,7 @@ RocketWeb is the pro version of the webview, where availabe multiple color contr
 <a href="https://play.google.com/store/apps/details?id=infix.imrankst1221.rocket.web/">https://play.google.com/store/apps/details?id=infix.imrankst1221.rocket.web</a>
 <br>
 <a href="https://play.google.com/store/apps/details?id=infix.imrankst1221.rocket.web/" rel="nofollow">
-  <img alt="InfixSoft" src="https://user-images.githubusercontent.com/7795398/50555025-59d00480-0cf0-11e9-932c-f8133bfeff1a.png" width="450" height="350" >
+  <img alt="InfixSoft" src="https://user-images.githubusercontent.com/7795398/50726450-4b8e4800-1137-11e9-9109-fdf6833e36e9.png" width="650" height="250" >
 </a>
 <br>
 
