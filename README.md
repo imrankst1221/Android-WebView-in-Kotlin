@@ -1,4 +1,4 @@
-# website-in-webview-with-admob
+# website-to-android-with-admob
 This project will help to develop website to mobile apps also has option to use admob.
 
 RocketWeb is the pro version of the webview, where availabe multiple color control and theme, see live example: 
