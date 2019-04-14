@@ -15,7 +15,7 @@ Buy pro version of webview only at $20
 <a href="https://codecanyon.net/item/rocketweb-android-web-app-solution-webtoapp/22985174">https://codecanyon.net/item/rocketweb-android-web-app-solution-webtoapp/22985174</a>
 <br>
 <a href="https://codecanyon.net/item/rocketweb-android-web-app-solution-webtoapp/22985174" rel="nofollow">
-  <img alt="InfixSoft" src="https://user-images.githubusercontent.com/7795398/56087425-d8f6dc00-5e8c-11e9-8d51-5ccfcd82445a.png" width="500" height="244" >
+  <img alt="InfixSoft" src="https://user-images.githubusercontent.com/7795398/56087425-d8f6dc00-5e8c-11e9-8d51-5ccfcd82445a.png" width="500" height="300" >
 </a>
 <br>
 
