@@ -24,7 +24,6 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
-import imrankst1221.fiver.kedaibaksonusantara.R
 import java.io.File
 import java.io.IOException
 import java.io.UnsupportedEncodingException
@@ -42,6 +41,7 @@ import javax.crypto.spec.SecretKeySpec
 class MainActivity : Activity() {
     private lateinit var mContext: Context
     internal var mLoaded = false
+
     // set your custom url here
     internal var URL = "https://www.infixsoft.com/"
 
