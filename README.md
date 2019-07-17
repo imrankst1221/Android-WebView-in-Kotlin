@@ -2,7 +2,10 @@
 
 
 ## Description
-An [Android WebView](https://d.android.com/guide/webapps/webview) developed in [Java](https://www.java.com/)using the [Android Studio tool](https://developer.android.com/studio/projects/add-kotlin#convert-to-kotlin-code). This project will help to develop website to mobile apps also has option to use admob.
+An [Android WebView](https://d.android.com/guide/webapps/webview) developed in [Kotlin](https://developer.android.com/kotlin] (https://developer.android.com/studio/projects/add-kotlin#convert-to-kotlin-code). This project will help to develop website to mobile apps also has option to use admob.
+
+<img width="403" src="https://user-images.githubusercontent.com/7795398/61391381-6c053f00-a8de-11e9-8a80-17b354d28369.png">
+
 
 **What is Android web view?**
 Android web view is web-based content which came from “*android.webkit*” library. The concept of web view is its load offline or online webpage.
@@ -21,6 +24,9 @@ From my experience I suggest must use Native app because of it’s official and 
 
 **Is it possible to change web view UI?**
 The web view is loading your website. So all it’s show that you have on your website. Not possible to change anything inside the web view. But if you can change the app color, add multiple pages, use AdMob, firebase, one signal notification, etc.
+
+**How to use it?**
+
 
 RocketWeb is the pro version of the webview, where availabe multiple color control and theme, see live example: 
 <br>
