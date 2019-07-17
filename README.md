@@ -2,7 +2,7 @@
 
 
 ## Description
-An [Android WebView](https://d.android.com/guide/webapps/webview) developed in [Kotlin](https://developer.android.com/kotlin)  (https://developer.android.com/studio/projects/add-kotlin#convert-to-kotlin-code). This project will help to develop responsive website to Android app.
+An [Android WebView](https://d.android.com/guide/webapps/webview) developed in [Kotlin](https://developer.android.com/kotlin) . This project will help to develop responsive website to Android app. This project is open source so if you want to contribute contact me.
 
 <img width="403" src="https://user-images.githubusercontent.com/7795398/61391381-6c053f00-a8de-11e9-8a80-17b354d28369.png">
 
