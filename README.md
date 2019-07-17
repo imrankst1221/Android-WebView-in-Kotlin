@@ -1,8 +1,8 @@
-# Website to android webview example 
+# Android WebView Example with Kotlin. Native Android WebView App Template. 
 
 
 ## Description
-An [Android WebView](https://d.android.com/guide/webapps/webview) developed in [Kotlin](https://developer.android.com/kotlin)  (https://developer.android.com/studio/projects/add-kotlin#convert-to-kotlin-code). This project will help to develop website to mobile apps also has option to use admob.
+An [Android WebView](https://d.android.com/guide/webapps/webview) developed in [Kotlin](https://developer.android.com/kotlin)  (https://developer.android.com/studio/projects/add-kotlin#convert-to-kotlin-code). This project will help to develop responsive website to Android app.
 
 <img width="403" src="https://user-images.githubusercontent.com/7795398/61391381-6c053f00-a8de-11e9-8a80-17b354d28369.png">
 
@@ -30,9 +30,12 @@ Just set your website url on *MainActivity.kt* as URL.
 ```
 internal var URL = "https://www.infixsoft.com/"
 ```
+Here is the video tutorial: https://youtu.be/c5AlbZKKsUk 
 
-==============================================================================================================
-RocketWeb is the pro version of the webview, where availabe multiple color control and theme, see live example: 
+
++++++++ .  .   .   .   . +++++++ .  .   .   .   . +++++++ .  .   .   .   .    +++++++
+
+**RocketWeb is the pro version of the webview, where availabe multiple color control and theme,** see live example: 
 <br>
 <a href="https://play.google.com/store/apps/details?id=infix.imrankst1221.rocket.web">https://play.google.com/store/apps/details?id=infix.imrankst1221.rocket.web</a>
 <br>
