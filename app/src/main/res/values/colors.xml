@@ -1,29 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8DBF58</color>
-    <color name="colorPrimaryDark">#74B847</color>
+    <color name="colorPrimary">#ffba92</color>
+    <color name="colorPrimaryDark">#ff8080</color>
     <color name="colorAccent">#F1C387</color>
     <color name="colorText">#A2A2A2</color>
     <color name="colorWhite">#F2F1F1</color>
-
-    <!-- Material core colors -->
-    <color name="material.core.red">#f44336</color>
-    <color name="material.core.pink">#E91E63</color>
-    <color name="material.core.purple">#9C27B0</color>
-    <color name="material.core.deep.purple">#673AB7</color>
-    <color name="material.core.indigo">#3F51B5</color>
-    <color name="material.core.blue">#2196F3</color>
-    <color name="material.core.light.blue">#03A9F4</color>
-    <color name="material.core.cyan">#00BCD4</color>
-    <color name="material.core.teal">#009688</color>
-    <color name="material.core.green">#4CAF50</color>
-    <color name="material.core.light.green">#8BC34A</color>
-    <color name="material.core.lime">#CDDC39</color>
-    <color name="material.core.yellow">#FFEB3B</color>
-    <color name="material.core.amber">#FFC107</color>
-    <color name="material.core.orange">#FF9800</color>
-    <color name="material.core.deep.orange">#FF5722</color>
-    <color name="material.core.brown">#795548</color>
-    <color name="material.core.grey">#9E9E9E</color>
-    <color name="material.core.blue.grey">#607D8B</color>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -29,7 +30,6 @@
                 android:layout_width="180dp"
                 android:layout_height="180dp"
                 android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
                 android:src="@drawable/ic_logo"
                 android:layout_marginTop="139dp"
                 android:layout_alignParentTop="true"
@@ -45,22 +45,32 @@
                 android:visibility="gone"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"/>
-            <ImageView
-                android:layout_width="212dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_company"
-                android:layout_above="@+id/txt_dialog"
-                android:layout_centerHorizontal="true" />
-            <TextView
-                android:id="@+id/txt_dialog"
+    
+            <LinearLayout
+                android:id="@+id/layout_footer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Brought to you by Web Startup Solutions"
-                android:textSize="16dp"
-                android:textColor="#fff"
-                android:layout_marginBottom="20dp"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Made with"
+                    android:textColor="@color/colorWhite"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    app:srcCompat="@drawable/ic_love" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="InfixSoft"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/layout_no_internet"
@@ -73,7 +83,7 @@
                 android:layout_height="match_parent"
                 android:alpha=".90"
                 android:background="@drawable/bg_main"/>
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_no_internet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
