@@ -1,4 +1,4 @@
-# Android WebView Example with Kotlin. Native Android WebView App Template. 
+# Android WebView Example with Kotlin. Website to Native Android App Template. 
 
 
 ## Description
