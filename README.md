@@ -32,6 +32,11 @@ internal var URL = "https://www.infixsoft.com/"
 ```
 Here is the video tutorial: https://youtu.be/c5AlbZKKsUk 
 
+*****************************************************************************
+
+# Get Android Development with Kotlin Book: https://amzn.to/35ZA3ab
+
+*****************************************************************************
 
 +++++++ .  .   .   .   . +++++++ .  .   .   .   . +++++++ .  .   .   .   .    +++++++
 
