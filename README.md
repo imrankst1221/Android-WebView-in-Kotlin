@@ -1,4 +1,4 @@
-# Android WebView Example with Kotlin. Website to Native Android App Template. 
+# Android WebView Example with Kotlin. Website to Native Android App Template.
 
 
 ## Description
@@ -11,14 +11,14 @@ An [Android WebView](https://d.android.com/guide/webapps/webview) developed in [
 Android web view is web-based content which came from “*android.webkit*” library. The concept of web view is its load offline or online webpage.
 
   **Online web view**: If you have a website which is responsive and runs well on the mobile browser then using web view you can develop android or ios app. Which load the URL and fill like Android app.
-  
+
   **Offline web view**: If you want to load the webpage in offline then the logic keeps the file in your asset folder and load the offline page. But in that case, you can’t use the server database and can’t update the app without publishing.
-  
+
 **Native app vs cross-platform web view app?**
 Web view app possible to develop in both platform. Both app main concept is the same.
 
   **Native APP**: Native app is official to provide a platform. Android official platform is Android studio which uses Java or Kotlin language. Because of it’s official so the resource is available and you get some advantage of using it.
-  
+
   **Cross-platform**: Cross app is an unofficial platform. Xamarin & flutter one of them. The benefit is you get Android and iOS both app from one platform. But the resource is limited some time it’s paid.
 From my experience I suggest must use Native app because of it’s official and in future if you need to add anything then easy to integrate.
 
@@ -26,11 +26,11 @@ From my experience I suggest must use Native app because of it’s official and 
 The web view is loading your website. So all it’s show that you have on your website. Not possible to change anything inside the web view. But if you can change the app color, add multiple pages, use AdMob, firebase, one signal notification, etc.
 
 **How to use it?**
-Just set your website url on *MainActivity.kt* as URL. 
+Just set your website url on *MainActivity.kt* as URL.
 ```
 internal var URL = "https://www.infixsoft.com/"
 ```
-Here is the video tutorial: https://youtu.be/c5AlbZKKsUk 
+Here is the video tutorial: https://youtu.be/c5AlbZKKsUk
 
 *****************************************************************************
 
@@ -40,7 +40,7 @@ Here is the video tutorial: https://youtu.be/c5AlbZKKsUk
 
 +++++++ .  .   .   .   . +++++++ .  .   .   .   . +++++++ .  .   .   .   .    +++++++
 
-**RocketWeb is the pro version of the webview, where availabe multiple color control and theme,** see live example: 
+**RocketWeb is the pro version of the webview, where availabe multiple color control and theme,** see live example:
 <br>
 <a href="https://play.google.com/store/apps/details?id=infix.imrankst1221.rocket.web">https://play.google.com/store/apps/details?id=infix.imrankst1221.rocket.web</a>
 <br>
@@ -49,7 +49,7 @@ Here is the video tutorial: https://youtu.be/c5AlbZKKsUk
 </a>
 <br>
 
-Buy pro version of webview only at $20
+For better experience and customiation use RocketWeb:s
 <br>
 <a href="https://codecanyon.net/item/rocketweb-android-web-app-solution-webtoapp/22985174">https://codecanyon.net/item/rocketweb-android-web-app-solution-webtoapp/22985174</a>
 <br>
@@ -78,6 +78,6 @@ Buy pro version of webview only at $20
 
 
 
-* Buy me a Coffee. ☕️ 
-   
-   <a href="https://www.paypal.me/imrankst1221" target="_blank"><img src="https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg" width="100" height="40" style="margin-bottom:-15px;"></a> 
+* Buy me a Coffee. ☕️
+
+   <a href="https://www.paypal.me/imrankst1221" target="_blank"><img src="https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg" width="100" height="40" style="margin-bottom:-15px;"></a>

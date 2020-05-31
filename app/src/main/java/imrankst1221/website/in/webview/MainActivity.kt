@@ -93,7 +93,7 @@ class MainActivity : Activity() {
         /** If you want to show adMob */
         //showAdMob();
 
-        var secret: SecretKey? = null
+        /*var secret: SecretKey? = null
         val toEncrypt = URL
         try {
             secret = generateKey()
@@ -104,7 +104,7 @@ class MainActivity : Activity() {
             Log.d(TAG, decryptMsg(toDecrypt, secret))
         } catch (e: Exception) {
             Log.e(TAG, "" + e.message)
-        }
+        }*/
 
     }
 
@@ -165,16 +165,19 @@ class MainActivity : Activity() {
 
                 Log.d(TAG, "URL: " + url!!)
                 if (internetCheck(mContext)) {
-                    //view.loadUrl(url);
+                    // If you wnat to open url inside then use
+                    view.loadUrl(url);
+
                     // if you wanna open outside of app
-                    if (url != null && url.startsWith(URL)) {
+                    /*if (url.contains(URL)) {
                         view.loadUrl(url)
                         return false
-                    }
-                    // Otherwise, give the default behavior (open in browser)
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    startActivity(intent)
-                    return true
+                    }else {
+                        // Otherwise, give the default behavior (open in browser)
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                        return true
+                    }*/
                 } else {
                     prgs.visibility = View.GONE
                     mWebView.visibility = View.GONE
@@ -359,17 +362,17 @@ class MainActivity : Activity() {
 
     private fun showAdMob() {
         /** Layout of AdMob screen View  */
-        //layoutFooter = (LinearLayout) findViewById(R.id.layout_footer);
-        //adView = (AdView) findViewById(R.id.adMob);
-        /*try {
-            if(internetCheck(mContext)){
-                //initializeAdMob();
-            }else{
-                Log.d("---------","--no internet-");
-            }
-        }catch (Exception ex){
-            Log.d("-----------", ""+ex);
-        }*/
+        /*layoutFooter = (LinearLayout) findViewById(R.id.layout_footer);
+          adView = (AdView) findViewById(R.id.adMob);
+          try {
+           if(internetCheck(mContext)){
+               //initializeAdMob();
+           }else{
+               Log.d("---------","--no internet-");
+           }
+       }catch (Exception ex){
+           Log.d("-----------", ""+ex);
+       }*/
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -404,7 +407,7 @@ class MainActivity : Activity() {
             return SecretKeySpec(key, "AES")
         }
 
-        @Throws(NoSuchAlgorithmException::class, NoSuchPaddingException::class, InvalidKeyException::class, InvalidParameterSpecException::class, IllegalBlockSizeException::class, BadPaddingException::class, UnsupportedEncodingException::class)
+        /*@Throws(NoSuchAlgorithmException::class, NoSuchPaddingException::class, InvalidKeyException::class, InvalidParameterSpecException::class, IllegalBlockSizeException::class, BadPaddingException::class, UnsupportedEncodingException::class)
         fun encryptMsg(message: String, secret: SecretKey): ByteArray {
             var cipher: Cipher? = null
             cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
@@ -418,7 +421,7 @@ class MainActivity : Activity() {
             cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
             cipher!!.init(Cipher.DECRYPT_MODE, secret)
             return String(cipher.doFinal(cipherText), charset("UTF-8"))
-        }
+        }*/
 
 
         /**** Initial AdMob  */
