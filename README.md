@@ -49,7 +49,7 @@ Here is the video tutorial: https://youtu.be/c5AlbZKKsUk
 </a>
 <br>
 
-For better experience and customiation use RocketWeb:s
+For better experience and customiation use RocketWeb:
 <br>
 <a href="https://codecanyon.net/item/rocketweb-android-web-app-solution-webtoapp/22985174">https://codecanyon.net/item/rocketweb-android-web-app-solution-webtoapp/22985174</a>
 <br>
